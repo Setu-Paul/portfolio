@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Every Child Connected | EPRO506 Digital Portfolio</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --forest:#0D3B2E; --green:#1B6B4A; --green-lt:#E8F5EF;
+  --amber:#C07120; --amber-lt:#FDF3E7;
+  --cream:#FAFAF7; --white:#FFFFFF; --border:#E0DDD6;
+  --ink:#1C1C1A; --mid:#4A4A45; --light:#8A8A82;
+  --ctx1:#1E3A8A; --ctx2:#0F5C52; --ctx3:#5B21B6;
+  --ctx4:#92400E; --ctx5:#881337;
+  --r:6px; --r2:12px;
+}
+html{scroll-behavior:smooth}
+body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--cream);
+  color:var(--ink);font-size:15px;line-height:1.7;display:flex;min-height:100vh}
+a{color:var(--green);text-decoration-color:rgba(27,107,74,.3);text-underline-offset:3px}
+a:hover{color:#0D3B2E}
+strong{font-weight:600}
+
+/* ── SIDEBAR ── */
+#sidebar{
+  position:fixed;top:0;left:0;width:230px;height:100vh;
+  background:var(--forest);color:#CBD5CC;
+  display:flex;flex-direction:column;overflow-y:auto;z-index:200;
+  padding:1.5rem 0 2rem;font-size:.82rem;
+}
+.sb-brand{padding:0 1.25rem 1.25rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.sb-brand h1{font-size:.95rem;font-weight:700;color:#fff;letter-spacing:-.01em;margin-bottom:.2rem}
+.sb-brand p{font-size:.74rem;color:#8DAA98;line-height:1.4}
+.sb-meta{padding:.75rem 1.25rem;border-bottom:1px solid rgba(255,255,255,.08);font-size:.72rem;color:#6A8A78}
+.sb-meta strong{color:#A0BEA8}
+.sb-nav{padding:.75rem 0;flex:1}
+.sb-nav-label{padding:.25rem 1.25rem;font-size:.68rem;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:#4A6A58;margin-top:.5rem}
+.sb-link{display:block;padding:.45rem 1.25rem;color:#8DAA98;cursor:pointer;
+  transition:.15s;border-left:3px solid transparent;font-size:.82rem;line-height:1.4}
+.sb-link:hover{color:#D4EDD9;background:rgba(255,255,255,.04)}
+.sb-link.active{color:#D4EDD9;border-left-color:#5ABF8A;background:rgba(255,255,255,.06)}
+.sb-link .ctx-num{font-size:.68rem;color:#4A6A58;display:block;margin-bottom:.05rem}
+.sb-footer{padding:.75rem 1.25rem;font-size:.7rem;color:#4A6A58;border-top:1px solid rgba(255,255,255,.06)}
+
+/* ── MAIN ── */
+#main{margin-left:230px;flex:1;min-width:0}
+
+/* ── CONTEXT SECTION ── */
+.ctx-section{padding:3rem 3rem 3rem;border-bottom:1px solid var(--border);
+  background:var(--white);position:relative}
+.ctx-section:nth-child(even){background:var(--cream)}
+
+.ctx-header{margin-bottom:2rem;padding-bottom:1.25rem;border-bottom:1px solid var(--border)}
+.ctx-tag{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;padding:.2rem .7rem;border-radius:20px;margin-bottom:.6rem}
+.ctx-header h2{font-size:1.65rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.35rem;color:var(--ink)}
+.ctx-header .sub{font-size:.95rem;color:var(--mid);max-width:680px;line-height:1.55}
+
+/* ── STAT STRIP ── */
+.stat-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r2);
+  overflow:hidden;margin-bottom:2rem}
+.stat-cell{background:var(--white);padding:.9rem 1rem;text-align:center}
+.ctx-section:nth-child(even) .stat-cell{background:var(--cream)}
+.stat-cell .big{font-size:1.6rem;font-weight:800;letter-spacing:-.03em;display:block;line-height:1.1}
+.stat-cell .sm{font-size:.73rem;color:var(--light);margin-top:.2rem;line-height:1.3}
+
+/* ── CONTENT BODY ── */
+.content-body{max-width:720px}
+.content-body p{color:var(--mid);margin-bottom:.85rem;font-size:.94rem}
+.content-body p:last-child{margin-bottom:0}
+
+/* ── THEORY ROW ── */
+.theory-row{display:flex;flex-wrap:wrap;gap:.4rem;margin:.5rem 0 1rem}
+.theory-pill{background:var(--green-lt);color:var(--green);border:1px solid #B8DCC8;
+  padding:.18rem .65rem;border-radius:20px;font-size:.73rem;font-weight:600}
+
+/* ── H3 SUB-SECTION ── */
+.sub-section{margin:1.75rem 0 .75rem}
+.sub-section h3{font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:.5rem;
+  display:flex;align-items:center;gap:.5rem}
+.sub-section h3::before{content:'';display:inline-block;width:3px;height:1em;
+  background:var(--green);border-radius:2px;flex-shrink:0}
+
+/* ── POLICY CARDS ── */
+.policy-set{display:flex;flex-direction:column;gap:.75rem;margin-top:.75rem}
+.pol-card{border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;background:var(--white)}
+.pol-card-head{padding:.75rem 1rem;background:var(--cream)}
+.pol-card-head strong{font-size:.9rem;color:var(--ink)}
+.pol-card-body{padding:.75rem 1rem;border-top:1px solid var(--border);font-size:.88rem;color:var(--mid)}
+.pol-eval{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.6rem}
+.pol-str{background:#F0FDF4;border:1px solid #86EFAC;border-radius:var(--r);
+  padding:.45rem .65rem;font-size:.8rem;color:#15803D}
+.pol-lim{background:#FFFBEB;border:1px solid #FCD34D;border-radius:var(--r);
+  padding:.45rem .65rem;font-size:.8rem;color:#92400E}
+.pol-str::before{content:'Strength  ';font-weight:700}
+.pol-lim::before{content:'Critical note  ';font-weight:700}
+
+/* ── STRATEGY CARDS ── */
+.strat-grid{display:grid;grid-template-columns:1fr;gap:.6rem;margin-top:.75rem}
+.strat-card{display:grid;grid-template-columns:2rem 1fr;gap:.75rem;align-items:start;
+  background:var(--white);border:1px solid var(--border);border-radius:var(--r2);padding:.85rem 1rem}
+.ctx-section:nth-child(even) .strat-card{background:var(--white)}
+.strat-num{width:2rem;height:2rem;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.78rem;font-weight:800;color:#fff;background:var(--green);flex-shrink:0}
+.strat-content strong{font-size:.9rem;color:var(--ink);display:block;margin-bottom:.2rem}
+.strat-content p{font-size:.85rem;color:var(--mid);margin:0;line-height:1.5}
+
+/* ── PARTNER CARDS ── */
+.partner-list{display:flex;flex-direction:column;gap:.5rem;margin-top:.75rem}
+.partner-row{display:grid;grid-template-columns:200px 1fr;gap:.75rem;
+  background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:.7rem .9rem;font-size:.87rem}
+.ctx-section:nth-child(even) .partner-row{background:var(--cream)}
+.partner-row strong{color:var(--ink);font-size:.85rem}
+.partner-row span{color:var(--mid)}
+
+/* ── RESOURCES ── */
+.res-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.75rem;margin-top:.75rem}
+.res-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r2);
+  padding:1rem;transition:.15s}
+.ctx-section:nth-child(even) .res-card{background:var(--cream)}
+.res-card:hover{border-color:#B8DCC8;box-shadow:0 4px 12px rgba(27,107,74,.08)}
+.res-card .rc-label{font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--light);margin-bottom:.4rem}
+.res-card h4{font-size:.88rem;font-weight:700;color:var(--ink);margin-bottom:.25rem;line-height:1.35}
+.res-card .rc-sub{font-size:.78rem;color:var(--light);margin-bottom:.4rem}
+.res-card p{font-size:.82rem;color:var(--mid);line-height:1.5;margin:0}
+.res-card a{font-size:.78rem;display:block;margin-top:.4rem}
+
+/* ── SUMMARY ── */
+.summary-box{background:var(--green-lt);border-left:4px solid var(--green);
+  border-radius:0 var(--r2) var(--r2) 0;padding:1rem 1.25rem;margin-top:1.25rem;
+  font-size:.92rem;color:#0D3B2E;font-style:italic}
+
+/* ── HOME ── */
+#home{background:var(--forest);min-height:100vh;padding:3rem;display:flex;flex-direction:column;justify-content:center}
+.home-inner{max-width:680px}
+.home-inner h1{font-size:2.4rem;font-weight:800;color:#fff;letter-spacing:-.03em;margin-bottom:.5rem;line-height:1.15}
+.home-inner h1 em{color:#5ABF8A;font-style:normal}
+.home-inner p{color:#8DAA98;font-size:1rem;margin-bottom:1rem;max-width:560px;line-height:1.65}
+.home-inner .student-info{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  border-radius:var(--r2);padding:.85rem 1rem;font-size:.85rem;color:#A0BEA8;margin-bottom:1.75rem;display:inline-block}
+.ctx-nav-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.75rem;margin-top:1.5rem}
+.ctx-nav-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);
+  border-radius:var(--r2);padding:1rem;cursor:pointer;transition:.2s;text-align:left}
+.ctx-nav-card:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.18);transform:translateY(-2px)}
+.ctx-nav-card .num{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#4A8A65;margin-bottom:.3rem}
+.ctx-nav-card h3{font-size:.9rem;font-weight:700;color:#D4EDD9;margin-bottom:.2rem}
+.ctx-nav-card p{font-size:.78rem;color:#6A8A78;line-height:1.4}
+.ctx-nav-card .bar{height:2px;border-radius:1px;margin-top:.7rem}
+
+/* ── REFS ── */
+#refs{background:var(--cream)}
+.ref-list p{font-size:.88rem;color:var(--mid);margin-bottom:.55rem;
+  padding-left:1.5rem;text-indent:-1.5rem;line-height:1.6}
+.genai-box{background:var(--amber-lt);border:1px solid #E8C980;border-radius:var(--r2);
+  padding:1rem 1.25rem;margin-top:1.5rem;font-size:.85rem;color:#92400E}
+.genai-box strong{display:block;margin-bottom:.3rem;font-size:.9rem}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#C8C8C0;border-radius:3px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:820px){
+  #sidebar{width:200px}
+  #main{margin-left:200px}
+  .ctx-section{padding:2rem 1.5rem}
+}
+@media(max-width:600px){
+  #sidebar{display:none}
+  #main{margin-left:0}
+  .pol-eval{grid-template-columns:1fr}
+  .partner-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div class="sb-brand">
+    <h1>Every Child Connected</h1>
+    <p>EPRO506 Digital Portfolio</p>
+  </div>
+  <div class="sb-meta">
+    <div><strong>Student:</strong> SETU PAUL</div>
+    <div><strong>ID:</strong> IkO3012951</div>
+    <div><strong>Due:</strong> 18 August 2026</div>
+    <div><strong>Unit:</strong> EPRO506 · UniSC</div>
+  </div>
+  <div class="sb-nav">
+    <div class="sb-nav-label">Portfolio</div>
+    <div class="sb-link active" onclick="goTo('home')">Overview &amp; Introduction</div>
+    <div class="sb-nav-label">Five Contexts</div>
+    <div class="sb-link" onclick="goTo('ctx1')">
+      <span class="ctx-num">Context 01</span>Economic Context
+    </div>
+    <div class="sb-link" onclick="goTo('ctx2')">
+      <span class="ctx-num">Context 02</span>Social Context
+    </div>
+    <div class="sb-link" onclick="goTo('ctx3')">
+      <span class="ctx-num">Context 03</span>Cultural &amp; Diversity
+    </div>
+    <div class="sb-link" onclick="goTo('ctx4')">
+      <span class="ctx-num">Context 04</span>Health &amp; Wellbeing
+    </div>
+    <div class="sb-link" onclick="goTo('ctx5')">
+      <span class="ctx-num">Context 05</span>Crisis &amp; Emergency
+    </div>
+    <div class="sb-nav-label">Documentation</div>
+    <div class="sb-link" onclick="goTo('refs')">References &amp; GenAI</div>
+  </div>
+  <div class="sb-footer">EYLF V2.0 · NQS · Strengths-based · Trauma-aware</div>
+</nav>
+
+<main id="main">
+
+<section id="home">
+<div class="home-inner">
+<h1>Every Child<br><em>Connected</em></h1>
+<p>A professional digital portfolio for early childhood educators working with children, families and communities in contemporary Australian society. Five evidence-based contexts — grounded in the EYLF V2.0, NQS, and current Australian policy and research.</p>
+<div class="student-info">
+  Setu Paul &nbsp;|&nbsp; Student ID: IkO3012951 &nbsp;|&nbsp; EPRO506 &middot; IKON Institute of Australia &nbsp;|&nbsp; 18 August 2026
+</div>
+<p style="color:#6A8A78;font-size:.88rem;max-width:560px">Early childhood services are not separate from the society in which children grow. They are community institutions shaped by economic conditions, family relationships, cultural contexts, health systems, public policy and emergencies. Bronfenbrenner (1979) places the child within interacting systems — from close relationships to government policy and social values. Resilience, as Ungar (2011) argues, develops when children access safe relationships, cultural continuity, material resources and responsive institutions. Each section of this portfolio analyses one contemporary context through that dual lens: structural challenge and family strength.</p>
+<div class="ctx-nav-grid">
+<div class="ctx-nav-card" onclick="goTo('ctx1')">
+  <div class="num">01</div><h3>Economic Context</h3>
+  <p>Child poverty, housing stress and financial hardship in Queensland</p>
+  <div class="bar" style="background:#1E3A8A"></div>
+</div>
+<div class="ctx-nav-card" onclick="goTo('ctx2')">
+  <div class="num">02</div><h3>Social Context</h3>
+  <p>Out-of-home care, family separation and placement stability</p>
+  <div class="bar" style="background:#0F5C52"></div>
+</div>
+<div class="ctx-nav-card" onclick="goTo('ctx3')">
+  <div class="num">03</div><h3>Cultural &amp; Diversity</h3>
+  <p>Kabi Kabi Country, First Nations families and cultural safety</p>
+  <div class="bar" style="background:#5B21B6"></div>
+</div>
+<div class="ctx-nav-card" onclick="goTo('ctx4')">
+  <div class="num">04</div><h3>Health &amp; Wellbeing</h3>
+  <p>Parental mental illness, perinatal wellbeing and early intervention</p>
+  <div class="bar" style="background:#92400E"></div>
+</div>
+<div class="ctx-nav-card" onclick="goTo('ctx5')">
+  <div class="num">05</div><h3>Crisis &amp; Emergency</h3>
+  <p>Domestic and family violence, coercive control and safe practice</p>
+  <div class="bar" style="background:#881337"></div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="ctx1" class="ctx-section">
+<div class="ctx-header">
+  <div class="ctx-tag" style="background:#EEF2FF;color:#1E3A8A">Context 01 — Economic</div>
+  <h2>Child Poverty and Financial Hardship</h2>
+  <div class="sub">Structural inequality, housing stress and the equity responsibilities of early childhood services — with particular attention to South-East Queensland families</div>
+</div>
+<div class="stat-strip">
+  <div class="stat-cell"><span class="big">1 in 8</span><div class="sm">Australian children below the poverty line (ACOSS &amp; UNSW, 2023)</div></div>
+  <div class="stat-cell"><span class="big">761,000</span><div class="sm">children in poverty nationally — a structural, not individual, failure</div></div>
+  <div class="stat-cell"><span class="big">42%</span><div class="sm">of lone-parent families cannot raise $2,000 within a week if needed</div></div>
+  <div class="stat-cell"><span class="big">NQS QA6</span><div class="sm">Collaborative partnerships — the framework for equity-based referral</div></div>
+</div>
+<div class="content-body">
+<div class="sub-section"><h3>Understanding the Context</h3>
+<div class="theory-row"><span class="theory-pill">Bronfenbrenner (1979) Ecological Systems</span><span class="theory-pill">Bourdieu (1986) Forms of Capital</span><span class="theory-pill">Conger et al. (2010) Family Stress Model</span><span class="theory-pill">Masten (2014) Resilience</span></div>
+<p>Economic hardship occurs when a family's income and material resources are insufficient to meet essential needs — housing, food, transport, healthcare and education. In Australia, the Australian Council of Social Service and UNSW Sydney (2023) report approximately 761,000 children live below the poverty line, roughly one in eight. In Queensland, the Child Poverty Alliance (2023) estimates that over 180,000 children live in households experiencing financial stress, with Sunshine Coast and Moreton Bay regions among those with growing proportions of low-income renters displaced by post-pandemic housing market pressures. These figures reflect structural conditions — wage stagnation, social housing shortfall, casualised employment, disability and discrimination — not personal failure.</p>
+<p>Bourdieu's (1986) concept of capital illuminates how poverty restricts not only financial resources but social networks (social capital) and institutionally valued knowledge (cultural capital), compounding disadvantage across generations. The family stress model (Conger et al., 2010) explains how financial pressure can erode parental wellbeing and disrupt consistent caregiving — though protective factors, including access to quality early childhood education, can interrupt this pathway. Bronfenbrenner's (1979) ecological systems theory situates the child within interacting environments: federal welfare settings, Queensland housing markets and the family home all shape the material conditions of daily life. Resilience research (Masten, 2014) confirms that stable relationships, predictable routines and responsive services can moderate developmental risks even under conditions of significant economic adversity.</p>
+</div>
+<div class="sub-section"><h3>Impact on Children, Families and Services</h3>
+<p>Financial hardship restricts access to nutritious food, safe play environments, consistent healthcare and stable housing — each with documented implications for cognitive development, language acquisition, physical health and school readiness (AIHW, 2023). Children experiencing housing instability in Queensland — including those in temporary caravan parks, couch-surfing arrangements or overcrowded dwellings — may attend early childhood services inconsistently, present with heightened anxiety or struggle to form stable peer relationships. These presentations require compassionate, trauma-informed interpretation, not deficit labelling.</p>
+<p>Families may experience shame when asked to supply materials, pay excursion fees or explain absences. Competitive fundraising, food drive activities and visible "needy family" supports can intensify exclusion and stigma. A more equitable service design universalises support — breakfast programs, borrowing libraries, spare clothing, no-cost excursions — so that no child is identified by what they receive. Services must also recognise that cost barriers, transport limitations and stigma can prevent the most disadvantaged families from accessing the programs designed to support them, creating an inverse equity problem that requires proactive, structural response.</p>
+</div>
+<div class="sub-section"><h3>Social Policy and Australian Responses</h3>
+<div class="policy-set">
+<div class="pol-card"><div class="pol-card-head"><strong>Australian Early Years Strategy 2024–2034 (Department of Education, 2024)</strong></div><div class="pol-card-body">A whole-of-government framework for children to thrive, emphasising integrated, child-centred policy design and early intervention across sectors.<div class="pol-eval"><div class="pol-str">Provides the first nationally coordinated framework linking early childhood with housing, health and income support policy.</div><div class="pol-lim">As a framework document, its impact depends on state implementation. Queensland's response through the Starting and Growing Strong Strategy 2017–2027 varies in reach across regional and remote areas.</div></div></div></div>
+<div class="pol-card"><div class="pol-card-head"><strong>Child Care Subsidy — Services Australia</strong></div><div class="pol-card-body">Reduces financial barriers to early childhood education and care. Activity-based eligibility allows most working families to access subsidised care.<div class="pol-eval"><div class="pol-str">Has expanded participation for many Queensland families, particularly in dual-income households in metropolitan and regional areas.</div><div class="pol-lim">Activity-based requirements may exclude families without stable employment — including those experiencing family violence, disability or casualised work. The most disadvantaged families may access the least subsidised care (ACOSS &amp; UNSW, 2023).</div></div></div></div>
+<div class="pol-card"><div class="pol-card-head"><strong>Queensland Social Housing: Homes for Queenslanders Strategy 2024</strong></div><div class="pol-card-body">Commits to increasing social and affordable housing supply across Queensland, acknowledging housing as a social determinant of children's outcomes.<div class="pol-eval"><div class="pol-str">Acknowledges housing affordability as an urgent child wellbeing issue and commits specific targets for Queensland construction.</div><div class="pol-lim">Queensland's social housing waitlist exceeds 48,000 households (AIHW, 2023). The strategy's supply targets will not resolve current unmet need within the timeframes relevant to young children in the system today.</div></div></div></div>
+</div>
+</div>
+<div class="sub-section"><h3>Five Evidence-Based Strategies for Practice</h3>
+<div class="strat-grid">
+<div class="strat-card"><div class="strat-num" style="background:#1E3A8A">1</div><div class="strat-content"><strong>Non-stigmatising, relational engagement</strong><p>Raise practical concerns privately. Use respectful, non-judgemental language and obtain informed consent before referrals. Treat families as decision-makers in their children's education and care, not passive recipients of professional assessment.</p></div></div>
+<div class="strat-card"><div class="strat-num" style="background:#1E3A8A">2</div><div class="strat-content"><strong>Universal material support</strong><p>Design support so all children benefit without identification: breakfast available to all, spare clothing in the bathroom, sunscreen provided, excursions no-cost. Remove the moment where a disadvantaged child is distinguished from their peers.</p></div></div>
+<div class="strat-card"><div class="strat-num" style="background:#1E3A8A">3</div><div class="strat-content"><strong>Predictable routines and educator continuity</strong><p>Assign consistent key educators. Use visual timetables and transition objects. When a family moves — increasingly common in Queensland's rental market — proactively support records transfer and connection with the receiving service.</p></div></div>
+<div class="strat-card"><div class="strat-num" style="background:#1E3A8A">4</div><div class="strat-content"><strong>Flexible access and communication</strong><p>Offer varied communication channels, translated information, flexible fee arrangements and the option of remote participation in meetings. Reduce the administrative burden that falls disproportionately on families managing multiple stressors simultaneously.</p></div></div>
+<div class="strat-card"><div class="strat-num" style="background:#1E3A8A">5</div><div class="strat-content"><strong>Warm referral with systemic advocacy</strong><p>With consent, contact services alongside families — not instead of them. Assist with forms. Document systemic barriers and report these through appropriate channels. Advocacy within professional scope is not optional: it is part of the EYLF's commitment to inclusion.</p></div></div>
+</div>
+</div>
+<div class="sub-section"><h3>Community and Professional Partnerships</h3>
+<div class="partner-list">
+<div class="partner-row"><strong>Ask Izzy (askizzy.org.au)</strong><span>Real-time, location-based directory of food, housing, financial, health and legal services. Use privately with families during intake or in response to identified need.</span></div>
+<div class="partner-row"><strong>Foodbank Queensland (foodbank.org.au/qld)</strong><span>Emergency food, school breakfast programs and community pantry partnerships. Services can establish a quiet referral arrangement or integrate Foodbank resources into the service's community support framework.</span></div>
+<div class="partner-row"><strong>National Debt Helpline — 1800 007 007</strong><span>Free financial counselling for families in debt or financial crisis. Include in family welcome packs as a normalised, accessible resource, not a crisis-only referral.</span></div>
+<div class="partner-row"><strong>Queensland Community Support Scheme (DCSSDS)</strong><span>State government emergency relief and referral for Queensland families. Educators can support families' access with documentation of need (e.g., attendance patterns, observed indicators), with consent.</span></div>
+<div class="partner-row"><strong>The Smith Family — Learning for Life</strong><span>Long-term educational support for children experiencing disadvantage. Queensland services can refer children and share learning goals, with family consent, to strengthen continuity across home and service contexts.</span></div>
+</div>
+</div>
+<div class="sub-section"><h3>Resources for Educators and Children</h3>
+<p>Programs and websites:</p>
+<div class="res-grid">
+<div class="res-card"><div class="rc-label">Website</div><h4>Ask Izzy</h4><div class="rc-sub">askizzy.org.au</div><p>Location-based service finder for food, housing, legal and financial support. Use privately with families during intake conversations.</p><a href="https://www.askizzy.org.au" target="_blank">https://www.askizzy.org.au</a></div>
+<div class="res-card"><div class="rc-label">Website</div><h4>Raising Children Network</h4><div class="rc-sub">raisingchildren.net.au — financial stress</div><p>Evidence-based guidance on supporting children during housing and financial stress. Use to prepare non-judgemental family conversations.</p><a href="https://raisingchildren.net.au/grown-ups/family-life/money-work/financial-problems-children" target="_blank">https://raisingchildren.net.au/grown-ups/family-life/money-work/financial-problems-children</a></div>
+<div class="res-card"><div class="rc-label">Website</div><h4>Foodbank Queensland</h4><div class="rc-sub">foodbank.org.au/qld</div><p>Food relief programs including school breakfast support. Contact to explore a service-level community pantry arrangement.</p><a href="https://www.foodbank.org.au/qld" target="_blank">https://www.foodbank.org.au/qld</a></div>
+<div class="res-card"><div class="rc-label">Website</div><h4>Services Australia — CCS</h4><div class="rc-sub">servicesaustralia.gov.au/child-care-subsidy</div><p>Help families understand current CCS eligibility, access fee guidance and prepare supporting documentation for applications.</p><a href="https://www.servicesaustralia.gov.au/child-care-subsidy" target="_blank">https://www.servicesaustralia.gov.au/child-care-subsidy</a></div>
+</div>
+<p style="margin-top:1rem">Children's storybooks:</p>
+<div class="res-grid">
+<div class="res-card"><div class="rc-label">Book</div><h4>Maddi's Fridge</h4><div class="rc-sub">Brandt (2014). Flashlight Press.</div><p>Explores hunger, friendship and safe help-seeking without romanticising poverty. Do not prompt children to disclose household food security — let the story open conversations naturally.</p></div>
+<div class="res-card"><div class="rc-label">Book</div><h4>Last Stop on Market Street</h4><div class="rc-sub">De la Peña (2015). G.P. Putnam's Sons.</div><p>Celebrates community strength, gratitude and noticing beauty in everyday life. Avoids romanticising hardship while affirming the value of what families have, not what they lack.</p></div>
+<div class="res-card"><div class="rc-label">Book</div><h4>Those Shoes</h4><div class="rc-sub">Boelts (2007). Candlewick Press.</div><p>Explores needs, wants, peer pressure and empathy. Pair with a service culture that avoids brand-based comparisons in dress-up or show-and-tell activities.</p></div>
+<div class="res-card"><div class="rc-label">Book</div><h4>A Chair for My Mother</h4><div class="rc-sub">Williams (1982). Greenwillow Books.</div><p>Family saving, community generosity and recovery after loss. Invite children to represent people who support their family, affirming the networks already present.</p></div>
+</div>
+<p style="margin-top:1rem">Video and media:</p>
+<div class="res-grid">
+<div class="res-card"><div class="rc-label">Video</div><h4>Sesame Street — Food Insecurity</h4><div class="rc-sub">sesamestreetincommunities.org</div><p>Short, carefully previewed clips for naming feelings about food and introducing predictable mealtime routines. Communicate with families before use.</p><a href="https://sesamestreetincommunities.org/topics/food-insecurity/" target="_blank">https://sesamestreetincommunities.org/topics/food-insecurity/</a></div>
+<div class="res-card"><div class="rc-label">Video</div><h4>Sesame Street — Family Homelessness</h4><div class="rc-sub">sesamestreetincommunities.org</div><p>Supports conversations about temporary homes and belonging. Preview carefully — some children's experiences may closely match the content.</p><a href="https://sesamestreetincommunities.org/topics/homelessness/" target="_blank">https://sesamestreetincommunities.org/topics/homelessness/</a></div>
+<div class="res-card"><div class="rc-label">Video</div><h4>Daniel Tiger's Neighborhood</h4><div class="rc-sub">abc.net.au/abckids</div><p>Practise emotional vocabulary, community themes and everyday help-seeking through familiar characters, songs and episode-based routines.</p><a href="https://www.abc.net.au/abckids" target="_blank">https://www.abc.net.au/abckids</a></div>
+<div class="res-card"><div class="rc-label">Video</div><h4>Play School — community episodes</h4><div class="rc-sub">abc.net.au/abckids/shows/play-school</div><p>Use the familiar, calm format to explore community connection and resourcefulness in everyday life.</p><a href="https://www.abc.net.au/abckids/shows/play-school" target="_blank">https://www.abc.net.au/abckids/shows/play-school</a></div>
+</div>
+</div>
+<div class="summary-box">Early childhood services working with families experiencing economic hardship must move beyond individual charity toward structural equity design. This means universal supports, flexible systems, non-stigmatising relationships, proactive referral and a willingness to advocate within professional scope when policies fail the families they are meant to serve. The educator's role is not to solve poverty — it is to ensure that economic hardship does not become an additional barrier to belonging, learning and safe development.</div>
+</section>
+
+<section id="ctx2" class="ctx-section">
+<div class="ctx-header">
+  <div class="ctx-tag" style="background:#ECFDF5;color:#0F5C52">Context 02 — Social</div>
+  <h2>Children in Out-of-Home Care</h2>
+  <div class="sub">Attachment, placement stability, the Aboriginal and Torres Strait Islander Child Placement Principle, and the early childhood service as protective environment</div>
+</div>
+<div class="stat-strip">
+  <div class="stat-cell"><span class="big">46,000</span><div class="sm">children in OOHC across Australia on any given night (AIHW, 2023)</div></div>
+  <div class="stat-cell"><span class="big">10×</span><div class="sm">rate of placement for First Nations children vs non-Indigenous nationally</div></div>
+  <div class="stat-cell"><span class="big">44%</span><div class="sm">of Queensland OOHC children are Aboriginal or Torres Strait Islander</div></div>
+  <div class="stat-cell"><span class="big">NQS QA2</span><div class="sm">Children's health, safety and wellbeing — foundational for children in care</div></div>
+</div>
+<div class="content-body">
+<div class="sub-section"><h3>Understanding the Context</h3>
+<div class="theory-row"><span class="theory-pill">Bowlby (1988) Attachment Theory</span><span class="theory-pill">Bronfenbrenner (1979) Ecological Systems</span><span class="theory-pill">Putnam (2000) Social Capital</span><span class="theory-pill">Masten (2014) Resilience</span></div>
+<p>Out-of-home care (OOHC) refers to formal arrangements — foster care, kinship care or residential care — when children cannot safely remain in their family home. The AIHW (2023) reports approximately 46,000 Australian children in OOHC on any given night in 2021–22, at a rate of 8.2 per 1,000. In Queensland, the Department of Children, Youth Justice and Multicultural Affairs (DCYJMA, 2023) reports that Aboriginal and Torres Strait Islander children represent 44% of children in Queensland OOHC despite comprising approximately 10% of the Queensland child population — a figure that demands structural, not individual, explanation rooted in the ongoing effects of colonisation, systemic racism, poverty and family service underfunding.</p>
+<p>Bowlby's (1988) attachment theory is foundational: children who have experienced abuse, neglect or unpredictable caregiving may develop disrupted attachment patterns affecting trust, emotional regulation and the capacity to form and sustain relationships. These are adaptive responses to unsafe environments, not pathological deficits. Bronfenbrenner's (1979) ecological framework illuminates how children entering OOHC simultaneously lose primary caregivers, siblings, schools, communities and familiar daily routines — a magnitude of system disruption that has no parallel in typical development. Resilience theory (Masten, 2014) offers the critical counterpoint: children's capacity for recovery is not fixed. It emerges from access to consistent, warm relationships, stable environments and responsive institutions. A quality early childhood service can be among the most significant protective environments a child in care accesses.</p>
+</div>
+<div class="sub-section"><h3>Impact on Children, Families and Services</h3>
+<p>Children in OOHC are at elevated population-level risk for developmental, social-emotional and mental health challenges, though individual outcomes vary considerably and many children in care demonstrate significant strengths and resilience (AIHW, 2023). Pre-placement trauma, not placement itself, is typically the primary driver of vulnerability. Children may present in early childhood settings with hypervigilance, difficulty managing transitions, challenges forming trusting relationships with educators, delayed language development or emotional dysregulation. These presentations require compassionate, curious interpretation — they are communications of unmet need in environments that have not previously been safe.</p>
+<p>For Aboriginal and Torres Strait Islander children in OOHC, identity and cultural connection are not supplementary concerns — they are foundational rights and critical protective factors (SNAICC, 2020). Early childhood services must actively support cultural connection, not merely tolerate it. Multiple placement changes — experienced by a significant proportion of Queensland children in OOHC — compound educational disruption, break trusted relationships and undermine the developmental continuity that secure attachment requires. Services must prepare clear protocols for collection arrangements, communication with carers and caseworkers, and mandatory reporting obligations — and must train all staff to understand these as standard professional practice, not exceptional circumstances.</p>
+</div>
+<div class="sub-section"><h3>Social Policy and Australian Responses</h3>
+<div class="policy-set">
+<div class="pol-card"><div class="pol-card-head"><strong>Safe and Supported: National Framework for Protecting Australia's Children 2021–2031 (DSS, 2021)</strong></div><div class="pol-card-body">Provides national direction for prevention, early intervention, family preservation and support for children in care to thrive. Explicitly addresses overrepresentation of First Nations children as a national priority.<div class="pol-eval"><div class="pol-str">Provides a coordinated, prevention-first framework that recognises the long-term costs of the child protection system and the value of early support.</div><div class="pol-lim">Numbers in OOHC nationally have not significantly declined under previous frameworks. Prevention investment remains insufficient relative to crisis-response expenditure. Queensland's implementation through the Child Protection and Other Legislation Amendment Act 2023 is still embedding.</div></div></div></div>
+<div class="pol-card"><div class="pol-card-head"><strong>Aboriginal and Torres Strait Islander Child Placement Principle (ATSI CPP)</strong></div><div class="pol-card-body">Requires that Aboriginal and Torres Strait Islander children be placed, in order of priority, with kin, then community, then non-Indigenous carers who can actively support cultural connection. Has legislative standing in Queensland under the Child Protection Act 1999.<div class="pol-eval"><div class="pol-str">Represents a legislated commitment to cultural connection as a child safety and wellbeing matter, not an optional preference.</div><div class="pol-lim">The ATSI CPP is inconsistently implemented in Queensland. Many Aboriginal children remain in non-Indigenous placements without adequate cultural support (SNAICC, 2020). Legislative requirement and operational practice continue to diverge.</div></div></div></div>
+<div class="pol-card"><div class="pol-card-head"><strong>Queensland Child Protection Act 1999 — Mandatory Reporting</strong></div><div class="pol-card-body">Requires all early childhood educators, among others, to report reasonable suspicion of harm or risk of harm to a child to the Child Safety intake line (1800 177 135) without delay.<div class="pol-eval"><div class="pol-str">Creates a clear, legally enforceable obligation that protects children and clarifies the educator's role.</div><div class="pol-lim">Mandatory reporting training varies significantly in quality across Queensland services. Some educators remain uncertain about thresholds for reporting, creating inconsistency in child protection practice.</div></div></div></div>
+</div>
+</div>
+<div class="sub-section"><h3>Five Evidence-Based Strategies for Practice</h3>
+<div class="strat-grid">
+<div class="strat-card"><div class="strat-num" style="background:#0F5C52">1</div><div class="strat-content"><strong>Key educator continuity and relationship-based pedagogy</strong><p>Assign a consistent, primary educator as the relational anchor for each child in OOHC. Gradually introduce a second trusted educator for continuity. Create predictable daily rituals — consistent greetings, farewell routines, comfort check-ins — that build the predictability attachment security requires.</p></div></div>
+<div class="strat-card"><div class="strat-num" style="background:#0F5C52">2</div><div class="strat-content"><strong>Detailed, regularly reviewed settling and transition plan</strong><p>Record comfort objects, words used for family members, collection arrangements, sensory preferences, what helps after contact visits, and what the child needs when transitioning between environments. Review at every placement change and share with receiving services.</p></div></div>
+<div class="strat-card"><div class="strat-num" style="background:#0F5C52">3</div><div class="strat-content"><strong>Neutral, inclusive family language throughout the curriculum</strong><p>Use 'families', 'grown-ups' and the child's own terms. Display diverse family configurations without presenting any one form as normative. Avoid activities — family tree projects, mother's day cards — that assume a particular family structure.</p></div></div>
+<div class="strat-card"><div class="strat-num" style="background:#0F5C52">4</div><div class="strat-content"><strong>Collaborative documentation with carers and caseworkers</strong><p>With legal clarity and informed consent, share factual, documented observations with carers and allocated Queensland Child Safety workers. Never carry messages between adults in the child's network, and never ask children to explain their living situation.</p></div></div>
+<div class="strat-card"><div class="strat-num" style="background:#0F5C52">5</div><div class="strat-content"><strong>Culturally safe practice for First Nations children in care</strong><p>For Aboriginal and Torres Strait Islander children in OOHC, actively pursue connection to local Community Controlled Organisations, Elders and cultural activities. This is not optional — it is a rights-based obligation under the ATSI CPP and a critical protective factor for the child's identity and wellbeing.</p></div></div>
+</div>
+</div>
+<div class="sub-section"><h3>Community and Professional Partnerships</h3>
+<div class="partner-list">
+<div class="partner-row"><strong>Queensland Child Safety — DCYJMA (1800 177 135)</strong><span>Statutory child protection authority and mandatory reporting contact. Educators share factual documented observations and clarify consent and decision-making authority before sharing information.</span></div>
+<div class="partner-row"><strong>CREATE Foundation (create.org.au)</strong><span>National peak body representing children and young people with OOHC experience. Provides resources to strengthen child-inclusive, care-aware practice in early childhood settings.</span></div>
+<div class="partner-row"><strong>SNAICC — National Voice for our Children (snaicc.org.au)</strong><span>Provides national leadership, professional resources and guidance on the ATSI Child Placement Principle and culturally safe practice for First Nations children in OOHC.</span></div>
+<div class="partner-row"><strong>Local Aboriginal and Torres Strait Islander Community Controlled Organisations</strong><span>Primary partners for cultural connection, Elders introductions and community-based support for First Nations children in care. Contact through local Land Councils or health organisations.</span></div>
+<div class="partner-row"><strong>Child and adolescent mental health clinician / therapeutic play practitioner</strong><span>Assesses developmental wellbeing and provides therapeutic support for children who have experienced complex trauma. Educators implement agreed relational and environmental strategies and contribute observational documentation.</span></div>
+</div>
+</div>
+<div class="sub-section"><h3>Resources for Educators and Children</h3>
+<div class="res-grid">
+<div class="res-card"><div class="rc-label">Website</div><h4>AIHW Child Protection Data</h4><div class="rc-sub">aihw.gov.au/reports/child-protection</div><p>Use current national and Queensland data to contextualise practice decisions and advocate for adequate resourcing within the service and sector.</p><a href="https://www.aihw.gov.au/reports/child-protection/child-protection-australia-2021-22" target="_blank">https://www.aihw.gov.au/reports/child-protection/child-protection-australia-2021-22</a></div>
+<div class="res-card"><div class="rc-label">Website</div><h4>CREATE Foundation</h4><div class="rc-sub">create.org.au</div><p>Audit whether the service genuinely listens to children in care and represents the care experience respectfully in curriculum, communication and service culture.</p><a href="https://www.create.org.au" target="_blank">https://www.create.org.au</a></div>
+<div class="res-card"><div class="rc-label">Website</div><h4>SNAICC early learning resources</h4><div class="rc-sub">snaicc.org.au</div><p>Strengthen knowledge of cultural safety, the ATSI CPP implementation and First Nations community-controlled approaches to early childhood.</p><a href="https://www.snaicc.org.au" target="_blank">https://www.snaicc.org.au</a></div>
+<div class="res-card"><div class="rc-label">Website</div><h4>Raising Children Network — foster and kinship care</h4><div class="rc-sub">raisingchildren.net.au/adults/foster-kinship-care</div><p>Share evidence-based guidance with foster and kinship carers and coordinate child-centred transition and settling strategies.</p><a href="https://raisingchildren.net.au/adults/foster-kinship-care" target="_blank">https://raisingchildren.net.au/adults/foster-kinship-care</a></div>
+</div>
+<div class="res-grid" style="margin-top:.75rem">
+<div class="res-card"><div class="rc-label">Book</div><h4>Owl Babies</h4><div class="rc-sub">Waddell (1992). Walker Books.</div><p>Addresses separation anxiety and the reliability of caregivers returning. Powerful for children whose primary attachments have been disrupted and who need consistent reassurance.</p></div>
+<div class="res-card"><div class="rc-label">Book</div><h4>The Invisible String</h4><div class="rc-sub">Karst (2000). DeVorss & Company.</div><p>Represents enduring connection despite separation or distance — across placement changes, contact visits or family disruption.</p></div>
+<div class="res-card"><div class="rc-label">Book</div><h4>The Family Book</h4><div class="rc-sub">Parr (2003). Little, Brown Books for Young Readers.</div><p>Celebrates diverse family configurations without presenting one form as normative. Invites children to describe what their family means to them.</p></div>
+<div class="res-card"><div class="rc-label">Book</div><h4>The Kissing Hand</h4><div class="rc-sub">Penn (1993). Child Welfare League of America.</div><p>Establishes a comforting farewell ritual for arrivals and departures — particularly useful during extended settling-in periods for children in OOHC.</p></div>
+</div>
+<div class="summary-box">Children in out-of-home care are not defined by their placement status. They bring strengths, relationships, cultural knowledge and individual personalities to the early childhood setting. The educator's role is to provide what is often scarce in their lives — consistency, warmth, genuine curiosity about who they are, and an environment where they can develop trust at their own pace. Mandatory reporting obligations must be understood and fulfilled. Cultural connection for First Nations children in care is a non-negotiable right, not an administrative afterthought.</div>
+</section>
+
+<section id="ctx3" class="ctx-section">
+<div class="notice" style="background:#FAF5FF;border:1px solid #C4B5FD;border-radius:6px;padding:.65rem 1rem;font-size:.83rem;color:#5B21B6;margin-bottom:1.25rem">This portfolio is prepared on Kabi Kabi and Jinibara Country. The following section uses "First Nations" as a respectful collective term while acknowledging over 250 distinct language groups. Educators are encouraged to learn the specific Country and peoples of their local service community.</div>
+<div class="ctx-header">
+  <div class="ctx-tag" style="background:#F5F3FF;color:#5B21B6">Context 03 — Cultural &amp; Diversity</div>
+  <h2>First Nations and Culturally Diverse Families</h2>
+  <div class="sub">Sovereignty, cultural safety, Kabi Kabi Country and responding to Australia's diverse families — with critical analysis of tokenism and institutional power</div>
+</div>
+<div class="stat-strip">
+  <div class="stat-cell"><span class="big">27.6%</span><div class="sm">of Australians born overseas — 2021 Census (ABS, 2022)</div></div>
+  <div class="stat-cell"><span class="big">250+</span><div class="sm">distinct First Nations language groups across Australia</div></div>
+  <div class="stat-cell"><span class="big">22.8%</span><div class="sm">spoke a language other than English at home — 2021 Census</div></div>
+  <div class="stat-cell"><span class="big">Kabi Kabi</span><div class="sm">Traditional custodians of Sunshine Coast and surrounding Country</div></div>
+</div>
+<div class="content-body">
+<div class="sub-section"><h3>Understanding the Context</h3>
+<div class="theory-row"><span class="theory-pill">Bronfenbrenner (1979) Chronosystem — colonial history</span><span class="theory-pill">Moll et al. (1992) Funds of Knowledge</span><span class="theory-pill">Crenshaw (1989) Intersectionality</span><span class="theory-pill">Masten (2014) Resilience — cultural continuity as protective</span></div>
+<p>Cultural diversity in Australia is both ancient and contemporary. Aboriginal and Torres Strait Islander peoples are the custodians of the world's oldest living continuous cultures, with connections to Country spanning tens of thousands of years across more than 250 distinct language groups. The IKON Institute of Australia sits on the lands of the Kabi Kabi (also written Gubbi Gubbi) peoples, and services in this region have a particular responsibility to engage authentically with Kabi Kabi community organisations, Elders and knowledge holders. The 2021 Census records that 27.6% of Australians were born overseas and 22.8% spoke a language other than English at home (ABS, 2022), reflecting the breadth of cultural diversity that early childhood services are expected to welcome and affirm.</p>
+<p>Funds of knowledge theory (Moll et al., 1992) asks educators to recognise the rich, historically developed knowledge embedded in household and community practices — knowledge that is often invisible or undervalued within mainstream educational settings. Intersectionality (Crenshaw, 1989) explains how experiences are shaped by overlapping social positions — race, gender, disability, class, religion and visa status — and cautions against single-axis analysis. For First Nations families, culturally safe practice must acknowledge sovereignty, ongoing connection to Country, the profound and continuing harms of colonisation and community-controlled organisations' right to determine what is appropriate for their children and families. Cultural responsiveness is not achieved through NAIDOC Week activities or multicultural dress-up days: it requires examining power, forming genuine and sustained community partnerships and changing institutional systems, not asking families to adapt to institutions (ACECQA, 2024).</p>
+</div>
+<div class="sub-section"><h3>Impact on Children, Families and Services</h3>
+<p>When language, names, family structures and cultural knowledge are genuinely reflected in an early childhood environment, children experience belonging, identity affirmation and engagement with learning. When they encounter racism — including the everyday racism of mispronunciation, tokenism, invisible curricula and deficit assumptions — they may withdraw, suppress parts of their identity or carry the psychological weight of being treated as representative of an entire culture. For refugee-background and recently arrived children, unfamiliar enrolment systems, limited professional interpreter access, transport barriers and distrust arising from prior experiences with authorities and institutions can restrict family engagement with services.</p>
+<p>Services must guard actively against within-group stereotyping: there is no single Aboriginal, Muslim, African, Asian or refugee perspective. Cultural safety requires governance-level institutional change — paid cultural expertise, accredited interpreter use, anti-racism policies and procedures, correct name pronunciation, bilingual learning environments and genuine sustained consultation with local communities — not supplementary activities bolted onto an unchanged mainstream program. Educators must distinguish cultural difference from developmental concern and must never use children as interpreters in significant conversations with adults. Within the Sunshine Coast region specifically, services should engage directly with the Kabi Kabi Gangalidda Aboriginal Corporation and local ACCOs to inform and co-design culturally appropriate programs.</p>
+</div>
+<div class="sub-section"><h3>Social Policy and Australian Responses</h3>
+<div class="policy-set">
+<div class="pol-card"><div class="pol-card-head"><strong>National Agreement on Closing the Gap (Coalition of Peaks & Australian Government, 2020)</strong></div><div class="pol-card-body">Developed in genuine partnership between the Coalition of Aboriginal and Torres Strait Islander Peak Organisations and all Australian governments. Target 4 aims for 55% of First Nations children developmentally on track at school entry by 2031.<div class="pol-eval"><div class="pol-str">First major national policy framework developed through genuine co-design with First Nations peoples, representing a structural shift from government-determined to community-determined targets.</div><div class="pol-lim">Progress on most Closing the Gap targets nationally remains insufficient or is worsening. Structural and community-controlled approaches are required. Deficit explanations for ongoing gaps must be actively rejected in favour of systemic analysis.</div></div></div></div>
+<div class="pol-card"><div class="pol-card-head"><strong>EYLF V2.0 — Cultural Responsiveness as Foundational Practice (DoE, 2022)</strong></div><div class="pol-card-body">Embeds Aboriginal and Torres Strait Islander perspectives and cultural responsiveness as core expectations of all approved early childhood services — not optional or additional themes.<div class="pol-eval"><div class="pol-str">Positions cultural responsiveness as a professional obligation for all Australian educators, regardless of the cultural composition of their current enrolment.</div><div class="pol-lim">Implementation varies significantly. The Framework's intent requires translation into genuine local community relationships that cannot be replaced by commercially produced 'culturally inclusive' resources or curriculum packs.</div></div></div></div>
+<div class="pol-card"><div class="pol-card-head"><strong>Queensland Multicultural Action Plan 2022–2024 and Settlement Services</strong></div><div class="pol-card-body">Queensland Government commitment to welcoming and integrating newly arrived families through coordinated settlement services, community organisations and English language support.<div class="pol-eval"><div class="pol-str">Provides a state-level policy framework that supports schools, services and community organisations in responding to cultural and linguistic diversity.</div><div class="pol-lim">Short-term settlement funding cycles limit relationship-building and service continuity. Services in high-settlement areas like Sunshine Coast require sustained, not time-limited, partnership investment.</div></div></div></div>
+</div>
+</div>
+<div class="sub-section"><h3>Five Evidence-Based Strategies for Practice</h3>
+<div class="strat-grid">
+<div class="strat-card"><div class="strat-num" style="background:#5B21B6">1</div><div class="strat-content"><strong>Co-design curriculum and governance with Kabi Kabi community</strong><p>Form ongoing, paid relationships with local Kabi Kabi Elders, ACCOs and cultural leaders. Act on the advice received. Do not treat consultation as a one-off audit or a formality before implementing a pre-determined program. Relationships take time and require demonstrated reciprocity.</p></div></div>
+<div class="strat-card"><div class="strat-num" style="background:#5B21B6">2</div><div class="strat-content"><strong>Sustain and celebrate home languages and cultural identities</strong><p>Learn key words in families' home languages. Use bilingual picture books, audio and visual materials. Invite family stories, songs and recipes into the curriculum. Reassure families explicitly that home language supports, not hinders, English acquisition and cognitive development.</p></div></div>
+<div class="strat-card"><div class="strat-num" style="background:#5B21B6">3</div><div class="strat-content"><strong>Embed anti-racism as everyday institutional practice</strong><p>Interrupt stereotyping and discriminatory comments immediately. Document incidents. Review recruitment, enrolment, curriculum and governance processes for embedded bias. Teach children to notice, name and respond to unfair exclusion — not as a special lesson, but as part of everyday community and social learning.</p></div></div>
+<div class="strat-card"><div class="strat-num" style="background:#5B21B6">4</div><div class="strat-content"><strong>Practise cultural humility, not cultural expertise</strong><p>Ask rather than assume. Pronounce names correctly and without commentary. Reflect on your own cultural positioning and power. Accept correction without defensiveness. Never ask one family member or community person to represent their entire culture or group.</p></div></div>
+<div class="strat-card"><div class="strat-num" style="background:#5B21B6">5</div><div class="strat-content"><strong>Make systems genuinely accessible across language and culture</strong><p>Use accredited professional interpreters — not children, siblings or community volunteers — for important conversations. Provide visual enrolment information. Offer flexible meeting times and locations. Proactively check whether visa status, literacy levels or unfamiliarity with Australian systems creates access barriers for specific families.</p></div></div>
+</div>
+</div>
+<div class="sub-section"><h3>Community and Professional Partnerships</h3>
+<div class="partner-list">
+<div class="partner-row"><strong>Kabi Kabi Gangalidda Aboriginal Corporation — Sunshine Coast region</strong><span>Primary local community partner for culturally safe practice. Contact for guidance on appropriate protocols, community introductions and local First Nations events on Sunshine Coast and surrounding Country.</span></div>
+<div class="partner-row"><strong>SNAICC — National Voice for our Children (snaicc.org.au)</strong><span>National peak body providing leadership, professional resources and advocacy on First Nations children, families and early childhood policy, including the ATSI Child Placement Principle.</span></div>
+<div class="partner-row"><strong>Reconciliation Australia — Narragunnawali (narragunnawali.org.au)</strong><span>Provides the Reconciliation Action Plan (RAP) framework for Queensland services to formalise reconciliation commitments through genuine community consultation and externally assessed commitment cycles.</span></div>
+<div class="partner-row"><strong>Multicultural Australia — Brisbane and Queensland</strong><span>Provides settlement services, cultural brokerage, language support and community connection for Queensland's newly arrived communities. Contact for professional interpreter referrals and community liaison for refugee-background families.</span></div>
+<div class="partner-row"><strong>Accredited interpreter services — TIS National (131 450)</strong><span>Free government telephone interpreting for early childhood services engaging with families who speak languages other than English. Available 24/7. Essential for enrolment, consent, health and safety conversations.</span></div>
+</div>
+</div>
+<div class="sub-section"><h3>Resources for Educators and Children</h3>
+<div class="res-grid">
+<div class="res-card"><div class="rc-label">Website</div><h4>Narragunnawali: Reconciliation in Education</h4><div class="rc-sub">narragunnawali.org.au</div><p>Develop a Reconciliation Action Plan with genuine Kabi Kabi community consultation. Access locally informed professional learning rather than generic cultural activities.</p><a href="https://www.narragunnawali.org.au" target="_blank">https://www.narragunnawali.org.au</a></div>
+<div class="res-card"><div class="rc-label">Website</div><h4>SNAICC educator resources</h4><div class="rc-sub">snaicc.org.au</div><p>Strengthen knowledge of cultural safety, community-controlled practice and the rights of First Nations children across all service contexts.</p><a href="https://www.snaicc.org.au" target="_blank">https://www.snaicc.org.au</a></div>
+<div class="res-card"><div class="rc-label">Website</div><h4>AIATSIS Map of Indigenous Australia</h4><div class="rc-sub">aiatsis.gov.au/explore/map-indigenous-australia</div><p>Confirm the correct name of the local Country and Traditional Owners. Incorporate into daily Acknowledgement of Country with genuine understanding, not rote recitation.</p><a href="https://aiatsis.gov.au/explore/map-indigenous-australia" target="_blank">https://aiatsis.gov.au/explore/map-indigenous-australia</a></div>
+<div class="res-card"><div class="rc-label">Website</div><h4>TIS National — Translating and Interpreting</h4><div class="rc-sub">tisnational.gov.au</div><p>Free professional telephone interpreting for early childhood services. Use for all important conversations with families who are not confident in English — not children or community members.</p><a href="https://www.tisnational.gov.au" target="_blank">https://www.tisnational.gov.au</a></div>
+</div>
+<div class="res-grid" style="margin-top:.75rem">
+<div class="res-card"><div class="rc-label">Book</div><h4>Welcome to Country</h4><div class="rc-sub">Murphy &amp; Kennedy (2016). Black Dog Books.</div><p>Introduces the meaning of Welcome to Country through Wurundjeri Elder Aunty Joy Murphy. Pair with learning the local Kabi Kabi Country protocols before reading.</p></div>
+<div class="res-card"><div class="rc-label">Book</div><h4>Cooee Mittigar: A Story on Darug Songlines</h4><div class="rc-sub">Seymour &amp; Watson (2019). Magabala Books.</div><p>Explores Darug language, seasonal knowledge and reciprocal relationships with Country. Modelled by a Darug woman author — an example of authentic representation.</p></div>
+<div class="res-card"><div class="rc-label">Book</div><h4>Silly Galah!</h4><div class="rc-sub">Dreise (2016). Magabala Books.</div><p>Explores community, respect and learning through native Australian animals. By Kamilaroi (Qld/NSW) author Gregg Dreise — deeply connected to Queensland Country.</p></div>
+<div class="res-card"><div class="rc-label">Book</div><h4>My Two Blankets</h4><div class="rc-sub">Kobald (2014). Little Hare Books.</div><p>Explores navigating an unfamiliar language environment, forming friendships and gradually building a new sense of belonging after displacement or migration.</p></div>
+</div>
+<div class="summary-box">Working respectfully with First Nations and culturally diverse families requires sustained commitment that cannot be purchased, outsourced or performed in special events. It requires institutional humility, genuine community relationships, systems that adapt rather than demand adaptation, and an unwavering commitment to every child's right to cultural identity and pride. On Kabi Kabi Country, this begins with knowing whose land the service sits on — and everything that responsibility entails.</div>
+</section>
+
+<section id="ctx4" class="ctx-section">
+<div class="ctx-header">
+  <div class="ctx-tag" style="background:#FEF3C7;color:#92400E">Context 04 — Health &amp; Wellbeing</div>
+  <h2>Parental Mental Illness and Family Wellbeing</h2>
+  <div class="sub">Perinatal mental health, trauma-informed practice and the early childhood service as a relational support environment for Queensland families</div>
+</div>
+<div class="stat-strip">
+  <div class="stat-cell"><span class="big">1 in 5</span><div class="sm">Australians experience mental illness annually (AIHW, 2022)</div></div>
+  <div class="stat-cell"><span class="big">1 in 5</span><div class="sm">new mothers — perinatal anxiety or depression (PANDA, 2023)</div></div>
+  <div class="stat-cell"><span class="big">1 in 10</span><div class="sm">new fathers — perinatal mental illness (PANDA, 2023)</div></div>
+  <div class="stat-cell"><span class="big">Be You</span><div class="sm">Free national initiative — register any early childhood service</div></div>
+</div>
+<div class="content-body">
+<div class="sub-section"><h3>Understanding the Context</h3>
+<div class="theory-row"><span class="theory-pill">Bowlby (1988) Attachment Theory</span><span class="theory-pill">Social Determinants of Health</span><span class="theory-pill">Masten (2014) Resilience</span><span class="theory-pill">SAMHSA (2014) Trauma-Informed Practice</span></div>
+<p>Health and wellbeing contexts in early childhood practice include parental mental illness, perinatal anxiety and depression, substance use, grief, disability and their intersections with poverty, housing insecurity and social isolation. The AIHW (2022) reports approximately one in five Australians experiences a mental health condition annually — a figure that represents not pathology but the human response to lives that are sometimes overwhelmed by structural and relational challenges. PANDA (2023) estimates one in five new mothers and one in ten new fathers experience perinatal anxiety or depression. The vast majority of parents who experience mental illness provide loving, safe, committed care for their children. This is not an exceptional finding requiring qualification — it is the baseline from which all practice in this context should begin.</p>
+<p>Bowlby's (1988) attachment theory provides critical analytical grounding: parental mental illness, when severe or unsupported, may affect the consistency and sensitivity of caregiving at critical developmental periods. However, this is not a deterministic or universal pathway — it is a population-level association mediated by a range of protective factors including treatment access, social support, stable housing and quality early childhood education (Masten, 2014). Social determinants of health situate parental mental illness within its structural context: poverty, housing insecurity, domestic violence, discrimination and limited healthcare access all elevate mental illness rates in ways that individual therapeutic interventions alone cannot resolve. Trauma-informed practice (SAMHSA, 2014) understands behaviour as an adaptive response to overwhelming experience and prioritises safety, trust, choice, collaboration and empowerment in all interactions with children and families.</p>
+</div>
+<div class="sub-section"><h3>Impact on Children, Families and Services</h3>
+<p>Children whose parents experience severe or untreated mental illness may face elevated population-level risk of inconsistent caregiving, disrupted routines and emotional unavailability (AIHW, 2022). Some children take on caring roles for parents experiencing significant illness, carrying responsibilities well beyond their developmental capacity. In early childhood settings, children may present with anxiety, difficulty managing transitions, emotional dysregulation or challenges forming trusting relationships — all of which require compassionate, curious interpretation rather than diagnostic labelling or punitive responses.</p>
+<p>For families, parental mental illness can create barriers to service engagement: stigma, reduced energy during difficult periods, fear of judgement or child removal, and the practical management challenges of navigating a health condition while parenting young children. Services that respond only in crisis miss substantial prevention opportunities. Everyday early childhood practice can actively support family mental health through the quality of relational environments offered, emotional literacy embedded throughout the curriculum, sensory regulation opportunities, outdoor play, flexible communication and genuine family partnership. Educators themselves require supervision, role clarity, access to debriefing and realistic workload expectations — secondary traumatic stress is a documented risk in services supporting families with high adversity, and it is a system responsibility, not an individual failing.</p>
+</div>
+<div class="sub-section"><h3>Social Policy and Australian Responses</h3>
+<div class="policy-set">
+<div class="pol-card"><div class="pol-card-head"><strong>National Children's Mental Health and Wellbeing Strategy (Department of Health, 2021)</strong></div><div class="pol-card-body">Provides a framework for an integrated system of mental health support for children aged 0–12 and their families, with emphasis on early intervention and prevention.<div class="pol-eval"><div class="pol-str">Recognises the 0–5 age range as foundational for long-term mental health and identifies early childhood services as a key platform for early intervention.</div><div class="pol-lim">Implementation requires coordination across health, education and family services systems that are not routinely integrated at local level. Queensland's regional variation in service availability limits equitable implementation.</div></div></div></div>
+<div class="pol-card"><div class="pol-card-head"><strong>Be You — Beyond Blue and Early Childhood Australia (beyou.edu.au)</strong></div><div class="pol-card-body">Free national initiative providing professional learning, resources and a whole-service framework for creating mentally healthy educational communities. Specifically designed for early childhood services.<div class="pol-eval"><div class="pol-str">Freely accessible for all Australian early childhood services. Directly builds educator capacity to support children's and families' mental health within the service's everyday practice.</div><div class="pol-lim">Uptake and sustained embedding require service leadership commitment. Resources alone do not create systemic change without integration into the service's quality improvement cycle and staff supervision framework.</div></div></div></div>
+<div class="pol-card"><div class="pol-card-head"><strong>PANDA — Perinatal Anxiety and Depression Australia</strong></div><div class="pol-card-body">Provides a national specialist helpline (1300 726 306), online resources and professional education on perinatal mental illness — directly relevant to services with very young children and families navigating the perinatal period.<div class="pol-eval"><div class="pol-str">Freely accessible, specialist and evidence-based. Represents the most accessible point of specialist perinatal mental health support for Australian families and the educators who work with them.</div><div class="pol-lim">Waiting times for specialist perinatal mental health clinical services remain lengthy in many Queensland regions, particularly outside Brisbane and the south-east corner. Digital and phone-based support is valuable but cannot replace face-to-face clinical care for complex presentations.</div></div></div></div>
+</div>
+</div>
+<div class="sub-section"><h3>Five Evidence-Based Strategies for Practice</h3>
+<div class="strat-grid">
+<div class="strat-card"><div class="strat-num" style="background:#92400E">1</div><div class="strat-content"><strong>Create relational safety through environmental and interpersonal predictability</strong><p>Use calm, consistent educator voices, predictable daily sequences, advance notice of changes and a warm settled physical environment. Repair relationship ruptures when they occur — the repair itself is a powerful modelling of how trusted adults respond when things go wrong.</p></div></div>
+<div class="strat-card"><div class="strat-num" style="background:#92400E">2</div><div class="strat-content"><strong>Teach co-regulation before expecting self-regulation</strong><p>Offer proximity, rhythmic movement, breathing, sensory tools and calm quiet spaces. Do not demand verbal reflection or emotional naming while a child is dysregulated. The adult's regulated nervous system is the intervention — be present before expecting the child to process.</p></div></div>
+<div class="strat-card"><div class="strat-num" style="background:#92400E">3</div><div class="strat-content"><strong>Use strengths-based family conversations with genuine curiosity</strong><p>Describe observations in specific, non-diagnostic language. Ask what works at home and what adults in the child's network notice. Identify the child's existing protective relationships. Agree on one or two achievable shared goals — not a comprehensive intervention plan.</p></div></div>
+<div class="strat-card"><div class="strat-num" style="background:#92400E">4</div><div class="strat-content"><strong>Follow child safety and mandatory reporting procedures without delay</strong><p>Document exact observations and verbatim disclosures. Avoid leading questions. Consult the nominated supervisor. Meet Queensland's mandatory reporting obligation to Child Safety (1800 177 135) when there are reasonable grounds for concern — do not delay to gather more information.</p></div></div>
+<div class="strat-card"><div class="strat-num" style="background:#92400E">5</div><div class="strat-content"><strong>Build a supported, supervised and professionally boundaried workforce</strong><p>Provide regular reflective supervision, clear role boundaries, access to structured debriefing and employee assistance programs. Staff supporting families with complex mental health presentations need system-level containment — not individual resilience as a substitute for adequate professional support.</p></div></div>
+</div>
+</div>
+<div class="sub-section"><h3>Community and Professional Partnerships</h3>
+<div class="partner-list">
+<div class="partner-row"><strong>PANDA — Perinatal Anxiety and Depression Australia (panda.org.au; 1300 726 306)</strong><span>Specialist national helpline and professional resources on perinatal mental illness. Include in all family welcome materials as a normalised, accessible and non-stigmatising resource.</span></div>
+<div class="partner-row"><strong>Be You (beyou.edu.au)</strong><span>Free professional learning and whole-service mental health framework. Register the service to access evidence-based resources for educators, children and families in the Queensland context.</span></div>
+<div class="partner-row"><strong>Emerging Minds (emergingminds.com.au)</strong><span>Provides infant and child mental-health practice resources and workforce e-learning for Australian professionals working with families where parental mental illness is present.</span></div>
+<div class="partner-row"><strong>Queensland Child and Youth Mental Health Services (CYMHS)</strong><span>State-funded clinical assessment and treatment for children with significant mental health needs. Contact via a GP or paediatrician referral. Educators can provide observational documentation with parental consent.</span></div>
+<div class="partner-row"><strong>Sunshine Coast TAFE Queensland and community health services</strong><span>Regional partners for family support, parenting programs and community mental health services accessible to Sunshine Coast families. Contact through Queensland Health or the Primary Health Network.</span></div>
+</div>
+</div>
+<div class="sub-section"><h3>Resources for Educators and Children</h3>
+<div class="res-grid">
+<div class="res-card"><div class="rc-label">Website</div><h4>Be You — early childhood resources</h4><div class="rc-sub">beyou.edu.au</div><p>Embed whole-service mental-health promotion and educator wellbeing practices into the service's quality framework. Freely available to all Australian early childhood services.</p><a href="https://beyou.edu.au" target="_blank">https://beyou.edu.au</a></div>
+<div class="res-card"><div class="rc-label">Website</div><h4>PANDA professional resources</h4><div class="rc-sub">panda.org.au</div><p>Strengthen referral pathways and prepare non-judgemental family conversations about perinatal mental illness.</p><a href="https://www.panda.org.au" target="_blank">https://www.panda.org.au</a></div>
+<div class="res-card"><div class="rc-label">Website</div><h4>Emerging Minds practice resources</h4><div class="rc-sub">emergingminds.com.au</div><p>Access evidence-based practice papers and e-learning on infant and child mental health and family-sensitive practice.</p><a href="https://emergingminds.com.au" target="_blank">https://emergingminds.com.au</a></div>
+<div class="res-card"><div class="rc-label">Website</div><h4>Raising Children Network — parental mental health</h4><div class="rc-sub">raisingchildren.net.au</div><p>Share accessible, evidence-based information with families and use to prepare developmentally appropriate conversations about wellbeing.</p><a href="https://raisingchildren.net.au/grown-ups/looking-after-yourself/parental-mental-health" target="_blank">https://raisingchildren.net.au/grown-ups/looking-after-yourself/parental-mental-health</a></div>
+</div>
+<div class="res-grid" style="margin-top:.75rem">
+<div class="res-card"><div class="rc-label">Book</div><h4>The Colour Monster</h4><div class="rc-sub">Llenas (2012). Flamboyant.</div><p>Build emotional vocabulary and show that feelings can be sorted, named and held without being judged. Visual and accessible for non-verbal and very young children.</p></div>
+<div class="res-card"><div class="rc-label">Book</div><h4>In My Heart: A Book of Feelings</h4><div class="rc-sub">Witek (2014). Abrams Appleseed.</div><p>Explores diverse emotions through first-person narration. Accessible for ages 2 and up; supports daily emotion check-ins and reflective conversations.</p></div>
+<div class="res-card"><div class="rc-label">Book</div><h4>The Rabbit Listened</h4><div class="rc-sub">Doerrfeld (2018). Dial Books.</div><p>Models attentive, patient, non-prescriptive listening after a distressing event. Useful for teaching educators and children that presence matters more than advice.</p></div>
+<div class="res-card"><div class="rc-label">Book</div><h4>When Sadness Is at Your Door</h4><div class="rc-sub">Eland (2019). Random House.</div><p>Normalises difficult feelings without dismissal or forced positivity. Useful for families navigating parental sadness, grief or depression — preview with knowledge of the child's context.</p></div>
+</div>
+<div class="summary-box">Parental mental illness is not a reason to reduce expectations of children's wellbeing or to adopt a surveillance stance toward families. Most parents experiencing mental illness are deeply committed to their children's welfare. The educator's role is to create consistently warm, predictable environments; to engage with families through genuine curiosity and respect; and to facilitate connections to specialist support through relationships built over time — not one-off referrals made in moments of concern.</div>
+</section>
+
+<section id="ctx5" class="ctx-section">
+<div class="notice" style="background:#FFF1F2;border:1px solid #FECDD3;border-radius:6px;padding:.65rem 1rem;font-size:.83rem;color:#881337;margin-bottom:1.25rem">This section uses respectful, non-blaming language. Non-offending parents — most commonly mothers — bear no responsibility for violence perpetrated against them. Responsibility lies entirely with the person using violence. Educators are not required to investigate or judge relationships. Their responsibilities are to support children, respond to disclosures appropriately and fulfil mandatory reporting obligations.</div>
+<div class="ctx-header">
+  <div class="ctx-tag" style="background:#FFF1F2;color:#881337">Context 05 — Crisis &amp; Emergency</div>
+  <h2>Domestic and Family Violence</h2>
+  <div class="sub">Coercive control, trauma-informed safe practice, body safety education and the educator's mandatory obligations under Queensland law</div>
+</div>
+<div class="stat-strip">
+  <div class="stat-cell"><span class="big">1 in 6</span><div class="sm">Australian women — experienced partner violence (ABS, 2023)</div></div>
+  <div class="stat-cell"><span class="big">1 in 17</span><div class="sm">Australian men — experienced partner violence (ABS, 2023)</div></div>
+  <div class="stat-cell"><span class="big">Leading</span><div class="sm">cause of homelessness for women and children in Australia</div></div>
+  <div class="stat-cell"><span class="big">1800 737 732</span><div class="sm">1800RESPECT — 24/7 national DFV counselling and referral</div></div>
+</div>
+<div class="content-body">
+<div class="sub-section"><h3>Understanding the Context</h3>
+<div class="theory-row"><span class="theory-pill">Bronfenbrenner (1979) Ecological Systems</span><span class="theory-pill">Crenshaw (1989) Intersectionality</span><span class="theory-pill">SAMHSA (2014) Trauma-Informed Practice</span><span class="theory-pill">Masten (2014) Resilience — protective factors under chronic stress</span></div>
+<p>Domestic and family violence (DFV) encompasses any pattern of behaviour in an intimate or family relationship used to coerce, control or harm — including physical violence, sexual assault, emotional and psychological abuse, financial abuse and coercive control. Coercive control is not an escalation of conflict: it is a sustained pattern of surveillance, isolation, humiliation and domination that can be more harmful to children and non-offending partners than physical violence alone. The ABS Personal Safety Survey (2023) reports that approximately one in six Australian women and one in seventeen men have experienced physical and/or sexual violence from a current or former partner since age 15. DFV is the leading cause of homelessness for women and children in Australia and a significant driver of child protection notifications.</p>
+<p>In Queensland, the Domestic and Family Violence Protection Act 2012 defines DFV broadly and specifically includes coercive control as a form of domestic violence — creating legal context that educators must understand. Bronfenbrenner's (1979) ecological systems theory frames DFV as both a microsystem experience (within the household) and a macrosystem problem rooted in gender inequality, economic power imbalances and social norms that tolerate male control over female partners and children. Intersectionality (Crenshaw, 1989) illuminates how overlapping dimensions of identity — Indigenous status, disability, visa status, sexuality, geographic isolation — compound vulnerability and constrain help-seeking. A strengths-based approach recognises the extraordinary courage, protective capacity and resilience demonstrated by people who have experienced DFV: non-offending parents typically go to great lengths to protect their children, often at significant personal cost and risk.</p>
+</div>
+<div class="sub-section"><h3>Impact on Children, Families and Services</h3>
+<p>Children who have witnessed or experienced DFV are at elevated population-level risk for developmental, social-emotional and mental health challenges, though individual outcomes depend significantly on protective factors and available support (AIHW, 2022). Chronic stress in environments characterised by fear, unpredictability and adult distress affects children's neurological development — particularly the stress-response systems and executive functioning capacities that underpin learning and self-regulation. In Queensland early childhood settings, children from DFV-affected families may present with hypervigilance, sleep disturbances, regression, aggressive play, unusual fearfulness or emotional volatility. These are adaptive responses to unsafe environments — not conduct requiring management — and they demand compassionate, curious professional interpretation.</p>
+<p>For non-offending parents, the impact of DFV on parenting reflects the effects of sustained trauma and coercive control — not individual weakness or poor decision-making. Services must maintain non-judgemental, compassionate relationships with non-offending parents while recognising that their safety and the child's safety are interconnected. Families escaping DFV in the Sunshine Coast and broader Queensland region may face emergency relocation, rapid service transitions, loss of housing, documents and social networks. Services must protect confidentiality absolutely, facilitate continuity of care across service boundaries and refuse to disclose family location or contact information under any circumstances — including to the person using violence.</p>
+</div>
+<div class="sub-section"><h3>Social Policy and Australian Responses</h3>
+<div class="policy-set">
+<div class="pol-card"><div class="pol-card-head"><strong>National Plan to End Violence against Women and Children 2022–2032 (DSS, 2022)</strong></div><div class="pol-card-body">Australia's overarching framework for preventing and responding to DFV and sexual violence, structured across prevention, early intervention, response and recovery. Explicitly addresses primary prevention through gender inequality as the root cause.<div class="pol-eval"><div class="pol-str">Positions DFV as a social and structural problem requiring whole-community prevention, not only crisis services. Includes specific attention to children as victim-survivors in their own right.</div><div class="pol-lim">Wait times for crisis accommodation in Queensland remain lengthy, particularly outside major cities. Culturally appropriate services for First Nations women and CALD communities remain insufficient despite explicit policy commitments.</div></div></div></div>
+<div class="pol-card"><div class="pol-card-head"><strong>Queensland Domestic and Family Violence Protection Act 2012 (amended 2023)</strong></div><div class="pol-card-body">Provides Queensland's legal framework for DFV protection orders, safety planning and service response. The 2023 amendments introduce coercive control as a criminal offence and expand protections.<div class="pol-eval"><div class="pol-str">Queensland is among the first Australian jurisdictions to criminalise coercive control — a significant recognition of the broader patterns of DFV beyond physical violence.</div><div class="pol-lim">Criminalising coercive control creates new responsibilities for service systems including early childhood. Educators need training on recognising patterns of coercive control — not only physical indicators — to apply mandatory reporting obligations appropriately.</div></div></div></div>
+<div class="pol-card"><div class="pol-card-head"><strong>Queensland Mandatory Reporting — Child Protection Act 1999</strong></div><div class="pol-card-body">Requires all early childhood educators to report reasonable suspicion of harm or risk of harm to a child — including exposure to domestic violence — to the Child Safety intake line (1800 177 135) without delay.<div class="pol-eval"><div class="pol-str">Creates a clear, enforceable legal obligation that protects children whose parents may not be able to self-report due to safety risks.</div><div class="pol-lim">Many educators remain uncertain about the threshold for reporting children's exposure to DFV, which may result in underreporting. Regular mandatory reporting training specific to DFV contexts is essential in all Queensland early childhood services.</div></div></div></div>
+</div>
+</div>
+<div class="sub-section"><h3>Five Evidence-Based Strategies for Practice</h3>
+<div class="strat-grid">
+<div class="strat-card"><div class="strat-num" style="background:#881337">1</div><div class="strat-content"><strong>Trauma-informed environmental design and relational safety</strong><p>Maintain calm, consistent, predictable environments. Use low-sensory transitions, consistent educator voices and physical spaces that do not feel threatening or chaotic. Interpret hypervigilance, aggression and regression as responses to prior threat — not as conduct requiring correction.</p></div></div>
+<div class="strat-card"><div class="strat-num" style="background:#881337">2</div><div class="strat-content"><strong>Age-appropriate body safety education within a comprehensive child rights curriculum</strong><p>Incorporate body safety education as part of everyday curriculum — not as a reactive response to identified concerns. Use Australian-developed resources (Sanders, 2011, 2015). Teach correct anatomical language, safe and unsafe touch, and that worry secrets should always be shared with a trusted adult. Follow up all disclosures promptly and without leading questions.</p></div></div>
+<div class="strat-card"><div class="strat-num" style="background:#881337">3</div><div class="strat-content"><strong>Non-judgemental, confidential practice with non-offending parents</strong><p>Listen. Affirm experience. Share information about available services without pressure, unsolicited advice or commentary on relationship decisions. Never disclose a family's location, contact details or service attendance to any third party — including a partner, ex-partner or family member — without explicit written consent from the family.</p></div></div>
+<div class="strat-card"><div class="strat-num" style="background:#881337">4</div><div class="strat-content"><strong>Support continuity of care during crisis and relocation</strong><p>Maintain flexible attendance records for families experiencing DFV. When families need to relocate quickly, facilitate rapid documentation transfer, provide a warm written handover to the receiving service and confirm the child's details are updated and confidential at the new service. Contact the family (via a safe number) to confirm successful transition.</p></div></div>
+<div class="strat-card"><div class="strat-num" style="background:#881337">5</div><div class="strat-content"><strong>Fulfil mandatory reporting obligations promptly, accurately and without delay</strong><p>Document exact observations, specific behaviours and verbatim disclosures in factual, non-interpretive language. Consult the nominated supervisor and Queensland's Child Safety intake (1800 177 135) when there are reasonable grounds for concern. Do not wait for certainty — mandatory reporting is triggered by reasonable suspicion, not proof.</p></div></div>
+</div>
+</div>
+<div class="sub-section"><h3>Community and Professional Partnerships</h3>
+<div class="partner-list">
+<div class="partner-row"><strong>1800RESPECT (1800respect.org.au; 1800 737 732)</strong><span>National 24/7 DFV counselling, information and referral. Include in all family resource materials and display visibly in parent-accessible areas of the service as a normalised safety resource.</span></div>
+<div class="partner-row"><strong>DVConnect Queensland (dvconnect.org; 1800 811 811)</strong><span>Queensland-specific DFV crisis line and service coordination for women, men and children. Know this number and DVConnect's local referral pathways before they are urgently needed.</span></div>
+<div class="partner-row"><strong>Sunshine Coast DFV Services — Centacare Catholic Family Services</strong><span>Delivers DFV counselling, safety planning, legal information and court support for Sunshine Coast families. Contact for warm referrals and to develop a service-level DFV response protocol.</span></div>
+<div class="partner-row"><strong>Our Watch (ourwatch.org.au)</strong><span>Provides evidence-based resources on gender equity, respectful relationships and the primary prevention of violence against women. Use for educator professional development and to review service culture and curriculum for messages that normalise gender inequality.</span></div>
+<div class="partner-row"><strong>Queensland Child Safety — 1800 177 135</strong><span>Statutory mandatory reporting contact. Educators report reasonable suspicion of harm — including children's exposure to DFV — and child protection workers determine the investigative response.</span></div>
+</div>
+</div>
+<div class="sub-section"><h3>Resources for Educators and Children</h3>
+<div class="res-grid">
+<div class="res-card"><div class="rc-label">Website</div><h4>1800RESPECT professional resources</h4><div class="rc-sub">1800respect.org.au/resources/for-professionals</div><p>Access guidance on recognising DFV indicators, responding to disclosures and understanding safe referral pathways specific to the early childhood context.</p><a href="https://www.1800respect.org.au/resources/for-professionals" target="_blank">https://www.1800respect.org.au/resources/for-professionals</a></div>
+<div class="res-card"><div class="rc-label">Website</div><h4>Our Watch educator resources</h4><div class="rc-sub">ourwatch.org.au</div><p>Use evidence-based prevention resources and gender equity frameworks to review service culture and develop respectful relationships in the curriculum.</p><a href="https://www.ourwatch.org.au" target="_blank">https://www.ourwatch.org.au</a></div>
+<div class="res-card"><div class="rc-label">Website</div><h4>AIHW — family, domestic and sexual violence</h4><div class="rc-sub">aihw.gov.au/reports/domestic-violence</div><p>Use current Australian DFV data to contextualise practice decisions and strengthen the service's child protection policy review.</p><a href="https://www.aihw.gov.au/reports/domestic-violence/family-domestic-and-sexual-violence" target="_blank">https://www.aihw.gov.au/reports/domestic-violence/family-domestic-and-sexual-violence</a></div>
+<div class="res-card"><div class="rc-label">Website</div><h4>Educate2Empower body safety resources</h4><div class="rc-sub">educate2empower.com.au</div><p>Select age-appropriate, evidence-based body safety curriculum developed by Australian authors specifically for Australian early childhood and primary contexts.</p><a href="https://www.educate2empower.com.au" target="_blank">https://www.educate2empower.com.au</a></div>
+</div>
+<div class="res-grid" style="margin-top:.75rem">
+<div class="res-card"><div class="rc-label">Book</div><h4>No Means No!</h4><div class="rc-sub">Sanders (2015). Educate2Empower Publishing.</div><p>Australian-authored body safety resource. Explore body autonomy and the right to refuse unwanted touch within a broader child safety and rights curriculum. Preview with knowledge of the group.</p></div>
+<div class="res-card"><div class="rc-label">Book</div><h4>Some Secrets Should Never Be Kept</h4><div class="rc-sub">Sanders (2011). Educate2Empower Publishing.</div><p>Australian-authored. Teaches the distinction between surprise secrets and worry secrets. Use within a whole-service body safety program; follow up all disclosures appropriately and without leading questions.</p></div>
+<div class="res-card"><div class="rc-label">Book</div><h4>The Rabbit Listened</h4><div class="rc-sub">Doerrfeld (2018). Dial Books.</div><p>Models attentive, non-prescriptive listening after a distressing event. Demonstrates that presence and patience — not advice or analysis — is what children often need most.</p></div>
+<div class="res-card"><div class="rc-label">Book</div><h4>The Invisible String</h4><div class="rc-sub">Karst (2000). DeVorss &amp; Company.</div><p>Represents enduring connection and love across distance and separation. Comforting for children separated from non-offending parents during safety planning or relocation.</p></div>
+</div>
+<div class="summary-box">Domestic and family violence is one of Australia's most serious public health and human rights challenges. In early childhood settings, it is also one of the most sensitive, complex and legally significant contexts educators navigate. This requires courage, clear professional knowledge, regular updated training and sustained institutional support. The educator's role is not to determine what has happened in a family — it is to create safety, listen well, observe and document accurately, and report in accordance with Queensland law when there are reasonable grounds for concern.</div>
+</section>
+
+<section id="refs" class="ctx-section">
+<div class="ctx-header">
+  <div class="ctx-tag" style="background:#F1F5F9;color:#334155">References &amp; GenAI Declaration</div>
+  <h2>References</h2>
+  <div class="sub">All references in APA 7th edition. All URLs represent freely accessible Australian sources verified at time of portfolio preparation. Verify currency before submission.</div>
+</div>
+<div class="content-body ref-list">
+<p>Australian Bureau of Statistics. (2022). <em>Cultural diversity of Australia.</em> <a href="https://www.abs.gov.au/articles/cultural-diversity-australia" target="_blank">https://www.abs.gov.au/articles/cultural-diversity-australia</a></p>
+<p>Australian Bureau of Statistics. (2023). <em>Personal safety, Australia.</em> <a href="https://www.abs.gov.au/statistics/people/crime-and-justice/personal-safety-australia/latest-release" target="_blank">https://www.abs.gov.au/statistics/people/crime-and-justice/personal-safety-australia/latest-release</a></p>
+<p>Australian Children's Education and Care Quality Authority. (2023). <em>Guide to the national quality standard.</em> <a href="https://www.acecqa.gov.au/nqf/national-quality-standard" target="_blank">https://www.acecqa.gov.au/nqf/national-quality-standard</a></p>
+<p>Australian Children's Education and Care Quality Authority. (2024). <em>Information sheet: EYLF practices — Cultural responsiveness.</em> <a href="https://www.acecqa.gov.au" target="_blank">https://www.acecqa.gov.au</a></p>
+<p>Australian Council of Social Service &amp; UNSW Sydney. (2023). <em>Poverty in Australia 2023: Who is affected?</em> <a href="https://www.acoss.org.au/poverty-in-australia" target="_blank">https://www.acoss.org.au/poverty-in-australia</a></p>
+<p>Australian Government Department of Education. (2022). <em>Belonging, being and becoming: The early years learning framework for Australia</em> (V2.0). <a href="https://www.acecqa.gov.au/sites/default/files/2023-01/EYLF-2022-V2.0.pdf" target="_blank">https://www.acecqa.gov.au/sites/default/files/2023-01/EYLF-2022-V2.0.pdf</a></p>
+<p>Australian Government Department of Education. (2024). <em>Early Years Strategy 2024–2034.</em> <a href="https://www.education.gov.au/early-childhood/about/strategy-and-evaluation/early-years-strategy" target="_blank">https://www.education.gov.au/early-childhood/about/strategy-and-evaluation/early-years-strategy</a></p>
+<p>Australian Government Department of Health. (2021). <em>National children's mental health and wellbeing strategy.</em> <a href="https://www.health.gov.au/resources/publications/the-national-childrens-mental-health-and-wellbeing-strategy" target="_blank">https://www.health.gov.au/resources/publications/the-national-childrens-mental-health-and-wellbeing-strategy</a></p>
+<p>Australian Government Department of Social Services. (2021). <em>Safe and supported: The national framework for protecting Australia's children 2021–2031.</em> <a href="https://www.dss.gov.au/safe-and-supported" target="_blank">https://www.dss.gov.au/safe-and-supported</a></p>
+<p>Australian Government Department of Social Services. (2022). <em>National plan to end violence against women and children 2022–2032.</em> <a href="https://www.dss.gov.au/national-plan-end-violence-against-women-and-children" target="_blank">https://www.dss.gov.au/national-plan-end-violence-against-women-and-children</a></p>
+<p>Australian Institute of Health and Welfare. (2022). <em>Family, domestic and sexual violence.</em> <a href="https://www.aihw.gov.au/reports/domestic-violence/family-domestic-and-sexual-violence" target="_blank">https://www.aihw.gov.au/reports/domestic-violence/family-domestic-and-sexual-violence</a></p>
+<p>Australian Institute of Health and Welfare. (2023). <em>Australia's children.</em> <a href="https://www.aihw.gov.au/reports/children-youth/australias-children" target="_blank">https://www.aihw.gov.au/reports/children-youth/australias-children</a></p>
+<p>Australian Institute of Health and Welfare. (2023). <em>Child protection Australia 2021–22.</em> <a href="https://www.aihw.gov.au/reports/child-protection/child-protection-australia-2021-22" target="_blank">https://www.aihw.gov.au/reports/child-protection/child-protection-australia-2021-22</a></p>
+<p>Be You. (2023). <em>Be You national initiative for mental health in education.</em> <a href="https://beyou.edu.au" target="_blank">https://beyou.edu.au</a></p>
+<p>Bourdieu, P. (1986). The forms of capital. In J. G. Richardson (Ed.), <em>Handbook of theory and research for the sociology of education</em> (pp. 241–258). Greenwood.</p>
+<p>Bowlby, J. (1988). <em>A secure base: Parent-child attachment and healthy human development.</em> Basic Books.</p>
+<p>Bronfenbrenner, U. (1979). <em>The ecology of human development: Experiments by nature and design.</em> Harvard University Press.</p>
+<p>Coalition of Peaks &amp; Australian Government. (2020). <em>National agreement on closing the gap.</em> <a href="https://www.closingthegap.gov.au/national-agreement" target="_blank">https://www.closingthegap.gov.au/national-agreement</a></p>
+<p>Conger, R. D., Conger, K. J., &amp; Martin, M. J. (2010). Socioeconomic status, family processes, and individual development. <em>Journal of Marriage and Family, 72</em>(3), 685–704. <a href="https://doi.org/10.1111/j.1741-3737.2010.00725.x" target="_blank">https://doi.org/10.1111/j.1741-3737.2010.00725.x</a></p>
+<p>Crenshaw, K. (1989). Demarginalizing the intersection of race and sex. <em>University of Chicago Legal Forum, 1989</em>(1), 139–167.</p>
+<p>Masten, A. S. (2014). <em>Ordinary magic: Resilience in development.</em> Guilford Press.</p>
+<p>Moll, L. C., Amanti, C., Neff, D., &amp; González, N. (1992). Funds of knowledge for teaching. <em>Theory Into Practice, 31</em>(2), 132–141. <a href="https://doi.org/10.1080/00405849209543534" target="_blank">https://doi.org/10.1080/00405849209543534</a></p>
+<p>PANDA. (2023). <em>Perinatal anxiety and depression.</em> <a href="https://www.panda.org.au" target="_blank">https://www.panda.org.au</a></p>
+<p>Putnam, R. D. (2000). <em>Bowling alone: The collapse and revival of American community.</em> Simon &amp; Schuster.</p>
+<p>SNAICC – National Voice for our Children. (2020). <em>Understanding and applying the Aboriginal and Torres Strait Islander Child Placement Principle.</em> <a href="https://www.snaicc.org.au" target="_blank">https://www.snaicc.org.au</a></p>
+<p>Substance Abuse and Mental Health Services Administration. (2014). <em>SAMHSA's concept of trauma and guidance for a trauma-informed approach</em> (HHS Publication No. SMA 14-4884). <a href="https://store.samhsa.gov/product/SAMHSA-s-Concept-of-Trauma-and-Guidance-for-a-Trauma-Informed-Approach/SMA14-4884" target="_blank">https://store.samhsa.gov</a></p>
+<p>Ungar, M. (2011). The social ecology of resilience. <em>American Journal of Orthopsychiatry, 81</em>(1), 1–17. <a href="https://doi.org/10.1111/j.1939-0025.2010.01067.x" target="_blank">https://doi.org/10.1111/j.1939-0025.2010.01067.x</a></p>
+<p style="margin-top:.5rem"><em>Children's literature and media cited as portfolio resources:</em> Boelts (2007); Brandt (2014); De la Peña (2015); Doerrfeld (2018); Dreise (2016); Eland (2019); Karst (2000); Kobald (2014); Llenas (2012); Murphy &amp; Kennedy (2016); Parr (2003); Penn (1993); Sanders (2011, 2015); Seymour &amp; Watson (2019); Waddell (1992); Williams (1982); Witek (2014).</p>
+<div class="genai-box">
+<strong>Generative AI Declaration — Student ID: IkO3012951</strong>
+Claude (Anthropic, 2026) was used to assist with structural organisation, drafting of section content, identification of Australian sources for independent verification, and editing for clarity and academic tone. All statistics, policy references and Australian source links were independently verified by Setu Paul against primary sources prior to inclusion. All critical analysis, professional judgements and decisions about content reflect the student's own knowledge, understanding and professional positioning. This declaration is provided in accordance with the IKON Institute of Australia's policy on generative AI in assessment.
+</div>
+</div>
+</section>
+
+</main>
+
+<script>
+const links = document.querySelectorAll('.sb-link');
+const sections = ['home','ctx1','ctx2','ctx3','ctx4','ctx5','refs'];
+
+function goTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting && e.intersectionRatio > 0.1) {
+      const id = e.target.id;
+      const idx = sections.indexOf(id);
+      if (idx !== -1) {
+        links.forEach(l => l.classList.remove('active'));
+        links[idx].classList.add('active');
+      }
+    }
+  });
+}, {threshold: 0.1, rootMargin: '-80px 0px -60% 0px'});
+
+sections.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) observer.observe(el);
+});
+</script>
+</body>
+</html>
